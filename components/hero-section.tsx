@@ -150,50 +150,52 @@ export function HeroSection() {
             </Button>
           </motion.div>
 
-          {/* Social Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.0, duration: 0.8 }}
-            className="flex items-center justify-center space-x-6 pt-8"
-          >
+          {/* Social Links moved to bottom */}
+        </motion.div>
+
+        {/* Bottom Social Icons & Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5, duration: 0.8 }}
+          className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 z-10"
+        >
+          {/* Social Icons Row */}
+          <div className="flex items-center justify-center space-x-4 mb-4">
             {socialLinks.map((link, index) => (
               <motion.a
-                key={link.label}
+                key={`bottom-${link.label}`}
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`p-3 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300 text-gray-600 dark:text-gray-400 ${link.color}`}
-                whileHover={{ y: -2 }}
+                className={`p-3 rounded-full bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border border-gray-200 dark:border-gray-700 shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300 text-gray-600 dark:text-gray-400 ${link.color}`}
+                whileHover={{ y: -3, scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.2 + index * 0.1 }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.6 + index * 0.1, type: "spring", stiffness: 200 }}
               >
                 {link.icon}
                 <span className="sr-only">{link.label}</span>
               </motion.a>
             ))}
-          </motion.div>
-        </motion.div>
+          </div>
 
-        {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 0.8 }}
-          className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 z-10"
-        >
+          {/* Scroll Down Arrow */}
           <motion.button
             onClick={(e) => handleSmoothScroll(e, "#about")}
-            className="flex flex-col items-center space-y-1 text-gray-500 dark:text-gray-400 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 p-2 rounded-lg hover:bg-white/10 dark:hover:bg-gray-800/20"
-            animate={{ y: [0, 8, 0] }}
-            transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
-            whileHover={{ scale: 1.05 }}
+            className="flex flex-col items-center space-y-1 text-gray-400 dark:text-gray-500 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 mx-auto"
+            animate={{ y: [0, 6, 0], opacity: 1 }}
+            transition={{ 
+              y: { repeat: Infinity, duration: 2.5, ease: "easeInOut" },
+              opacity: { delay: 2.0, duration: 0.5 }
+            }}
+            whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
+            initial={{ opacity: 0 }}
           >
-            <span className="text-xs sm:text-sm font-medium tracking-wide">Scroll Down</span>
-            <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5" />
+            <ChevronDown className="w-5 h-5" />
+            <span className="text-xs font-medium tracking-wide">Scroll</span>
           </motion.button>
         </motion.div>
       </div>
