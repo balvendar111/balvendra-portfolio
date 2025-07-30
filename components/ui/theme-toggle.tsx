@@ -1,12 +1,12 @@
 'use client'
 
 import * as React from 'react'
-import { Moon, Sun } from 'lucide-react'
+import { Moon, Sun, Monitor } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { Button } from '@/components/ui/button'
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme()
+  const { theme, setTheme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = React.useState(false)
 
   React.useEffect(() => {
@@ -21,16 +21,42 @@ export function ThemeToggle() {
     )
   }
 
+  const handleThemeToggle = () => {
+    if (theme === 'light') {
+      setTheme('dark')
+    } else if (theme === 'dark') {
+      setTheme('system')
+    } else {
+      setTheme('light')
+    }
+  }
+
+  const getThemeIcon = () => {
+    if (theme === 'light') {
+      return <Sun className="h-4 w-4 text-yellow-500" />
+    } else if (theme === 'dark') {
+      return <Moon className="h-4 w-4 text-blue-400" />
+    } else {
+      return <Monitor className="h-4 w-4 text-gray-500" />
+    }
+  }
+
+  const getThemeLabel = () => {
+    if (theme === 'light') return 'Switch to dark mode'
+    if (theme === 'dark') return 'Switch to system mode'
+    return 'Switch to light mode'
+  }
+
   return (
     <Button
       variant="outline"
       size="icon"
-      onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+      onClick={handleThemeToggle}
       className="h-9 w-9 relative overflow-hidden border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300"
+      title={getThemeLabel()}
     >
-      <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-yellow-500" />
-      <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 text-blue-400" />
-      <span className="sr-only">Toggle theme</span>
+      {getThemeIcon()}
+      <span className="sr-only">{getThemeLabel()}</span>
     </Button>
   )
 } 
