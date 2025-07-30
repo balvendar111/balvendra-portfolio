@@ -501,7 +501,7 @@ export function ContactSection() {
                       </div>
                       <a 
                         href={method.href}
-                        target={method.href.startsWith('mailto:') ? '_self' : '_blank'}
+                        target={method.href && method.href.startsWith('mailto:') ? '_self' : '_blank'}
                         rel="noopener noreferrer"
                         className="text-sm text-gray-600 dark:text-gray-400 hover:text-orange-500 dark:hover:text-orange-400 transition-colors"
                       >
