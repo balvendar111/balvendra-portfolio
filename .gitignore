@@ -38,4 +38,15 @@ next-env.d.ts
 .idea/
 
 # OS
-Thumbs.db 
+Thumbs.db
+
+# Documentation files we don't want in repo
+CONTACT_*.md
+ENABLE_*.md
+*_SETUP_*.md
+*_INFO_*.md
+*_GUIDE.md
+
+# Temporary or local files
+*.tmp
+*.temp
