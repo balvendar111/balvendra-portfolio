@@ -69,7 +69,7 @@ export function HeroSection() {
       {/* Grid Pattern Overlay */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5 dark:opacity-10"></div>
 
-      <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+      <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto pb-32 sm:pb-36">
         {/* Main Content */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -153,74 +153,76 @@ export function HeroSection() {
           {/* Social Links moved to bottom */}
         </motion.div>
 
-        {/* Bottom Social Icons & Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 0.8 }}
-          className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 z-10"
-        >
-          {/* Social Icons Row */}
-          <div className="flex items-center justify-center space-x-4 mb-4">
-            {socialLinks.map((link, index) => (
-              <motion.a
-                key={`bottom-${link.label}`}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`p-3 rounded-full bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border border-gray-200 dark:border-gray-700 shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300 text-gray-600 dark:text-gray-400 ${link.color}`}
-                whileHover={{ y: -3, scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 1.6 + index * 0.1, type: "spring", stiffness: 200 }}
-              >
-                {link.icon}
-                <span className="sr-only">{link.label}</span>
-              </motion.a>
-            ))}
-          </div>
-
-          {/* Scroll Down Arrow */}
-          <motion.button
-            onClick={(e) => handleSmoothScroll(e, "#about")}
-            className="flex flex-col items-center space-y-1 text-gray-400 dark:text-gray-500 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300 mx-auto"
-            animate={{ y: [0, 6, 0], opacity: 1 }}
-            transition={{ 
-              y: { repeat: Infinity, duration: 2.5, ease: "easeInOut" },
-              opacity: { delay: 2.0, duration: 0.5 }
-            }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            initial={{ opacity: 0 }}
+        {/* Bottom Social Icons & Scroll Indicator - Fixed Position */}
+        <div className="absolute inset-x-0 bottom-0 z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.5, duration: 0.8 }}
+            className="flex flex-col items-center pb-6 sm:pb-8"
           >
-            <ChevronDown className="w-5 h-5" />
-            <span className="text-xs font-medium tracking-wide">Scroll</span>
-          </motion.button>
-        </motion.div>
+            {/* Social Icons Row */}
+            <div className="flex items-center justify-center space-x-4 mb-3">
+              {socialLinks.map((link, index) => (
+                <motion.a
+                  key={`bottom-${link.label}`}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`p-3 rounded-full bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border border-gray-200 dark:border-gray-700 shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300 text-gray-600 dark:text-gray-400 ${link.color}`}
+                  whileHover={{ y: -3, scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 1.6 + index * 0.1, type: "spring", stiffness: 200 }}
+                >
+                  {link.icon}
+                  <span className="sr-only">{link.label}</span>
+                </motion.a>
+              ))}
+            </div>
+
+            {/* Scroll Down Arrow */}
+            <motion.button
+              onClick={(e) => handleSmoothScroll(e, "#about")}
+              className="flex flex-col items-center space-y-1 text-gray-400 dark:text-gray-500 hover:text-orange-500 dark:hover:text-orange-400 transition-all duration-300"
+              animate={{ y: [0, 6, 0], opacity: 1 }}
+              transition={{ 
+                y: { repeat: Infinity, duration: 2.5, ease: "easeInOut" },
+                opacity: { delay: 2.0, duration: 0.5 }
+              }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0 }}
+            >
+              <ChevronDown className="w-5 h-5" />
+              <span className="text-xs font-medium tracking-wide">Scroll</span>
+            </motion.button>
+          </motion.div>
+        </div>
       </div>
 
       <style jsx>{`
-        @keyframes blob {
-          0% { transform: translate(0px, 0px) scale(1); }
-          33% { transform: translate(30px, -50px) scale(1.1); }
-          66% { transform: translate(-20px, 20px) scale(0.9); }
-          100% { transform: translate(0px, 0px) scale(1); }
-        }
-        .animate-blob {
-          animation: blob 7s infinite;
-        }
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-        .animation-delay-4000 {
-          animation-delay: 4s;
-        }
-        .bg-grid-pattern {
-          background-image: radial-gradient(circle, #gray-300 1px, transparent 1px);
-          background-size: 20px 20px;
-        }
-      `}</style>
+      @keyframes blob {
+        0% { transform: translate(0px, 0px) scale(1); }
+        33% { transform: translate(30px, -50px) scale(1.1); }
+        66% { transform: translate(-20px, 20px) scale(0.9); }
+        100% { transform: translate(0px, 0px) scale(1); }
+      }
+      .animate-blob {
+        animation: blob 7s infinite;
+      }
+      .animation-delay-2000 {
+        animation-delay: 2s;
+      }
+      .animation-delay-4000 {
+        animation-delay: 4s;
+      }
+      .bg-grid-pattern {
+        background-image: radial-gradient(circle, #gray-300 1px, transparent 1px);
+        background-size: 20px 20px;
+      }
+    `}</style>
     </section>
   );
 }
